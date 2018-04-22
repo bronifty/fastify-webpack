@@ -1,0 +1,7 @@
+.wrapper {
+	@from-width lg {
+		&::before {
+			content: 'current media size >= lg';
+		}
+	}
+}

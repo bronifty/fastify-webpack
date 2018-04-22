@@ -1,0 +1,38 @@
+{
+	"plugins": [
+		"@babel/plugin-proposal-object-rest-spread",
+		"@babel/plugin-proposal-class-properties",
+
+		[
+			"react-css-modules", {
+				"exclude": "^(?!.*module).+\\.(css)$",
+				"generateScopedName": "[local]__[hash:base64:5]",
+				"context": "src"
+			}
+		]
+	],
+
+	"presets": [
+		["@babel/preset-env", {
+			"modules": false,
+			"targets": {
+				"browsers": ["last 2 versions", "safari >= 7"]
+			}
+		}],
+
+		'@babel/preset-react',
+
+		'@babel/preset-flow',
+	],
+
+	"env": {
+		"test": { // when process.env.NODE_ENV is 'test'...
+			"plugins": [
+				// https://facebook.github.io/jest/docs/tutorial-webpack.html#webpack-2
+				// webpack 2 offers native support for ES modules. However, Jest runs in
+				// Node, and thus requires ES modules to be transpiled to CommonJS modules
+				"@babel/plugin-transform-modules-commonjs",
+			]
+		}
+	}
+}

@@ -1,0 +1,21 @@
+{
+  "name": "http2-webpack-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "@tsnieman",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^1.2.1",
+    "fastify-auto-push": "^0.3.2",
+    "fastify-compress": "^0.5.1",
+    "fastify-helmet": "^1.0.3",
+    "fastify-react": "^2.0.0",
+    "node": "^9.11.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
+  }
+}
