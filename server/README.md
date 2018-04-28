@@ -1,7 +1,7 @@
 ```
 # Run the server:
-$ node index.js
+$ npm run start
  DONE  Compiled successfully in 1047ms                                                                                                                         14:08:52
 
-Listening on port 8080                   
+Listening on port 8080
 ```
