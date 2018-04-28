@@ -15,12 +15,18 @@ module.exports = {
 		require('postcss-nested')(),
 		require('postcss-import')({
 			path: [
-				'./src'
+				'./src',
 			],
 		}),
 		require('postcss-custom-properties')(),
 		require('postcss-custom-selectors')(),
 		require('postcss-color-function')(),
-		require('autoprefixer')({ browsers: ['last 2 versions'] }),
-	]
-}
+		require('autoprefixer')({
+			browsers: [
+				'>0.25%',
+				'not ie 11',
+				'not op_mini all',
+			],
+		}),
+	],
+};
