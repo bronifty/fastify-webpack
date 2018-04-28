@@ -1,13 +1,9 @@
 <!doctype html>
-<html lang="en" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>>
+<html lang="en">
 	<head>
 		<meta name=viewport content="width=device-width, initial-scale=1">
-
-		<!-- also in manifest.json -->
-		<meta name="theme-color" content="#ffaa00">
-
 		<title><%= htmlWebpackPlugin.options.title || 'Webapp Title' %></title>
-
+		<link rel="manifest" href="/manifest.webmanifest">
 		<% if (htmlWebpackPlugin.files.favicon) { %>
 		<link rel="shortcut icon" href="<%= htmlWebpackPlugin.files.favicon%>">
 		<% } %>

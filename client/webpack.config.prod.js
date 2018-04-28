@@ -4,6 +4,7 @@ const context = path.resolve(__dirname, 'src');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
@@ -41,12 +42,28 @@ module.exports = {
 			chunkFilename: '[id].css',
 		}),
 
+		new WebpackPwaManifest({
+			filename: 'manifest.webmanifest',
+			name: 'Webapp name goes here',
+			short_name: 'Webapp',
+			description: 'This is a webapp.',
+			background_color: '#fff',
+			theme_color: '#00aaff',
+			inject: true,
+			icons: [
+				{
+					src: path.resolve(__dirname, './static/react-1024px.png'),
+					sizes: [96, 128, 192, 256, 384, 512, 1024],
+				},
+			],
+		}),
+
 		// Generate HTML to serve
 		new HtmlWebpackPlugin({
-			template: path.join(__dirname, './src/index.template.html'),
+			template: path.resolve(__dirname, './src/index.template.html'),
 			filename: 'index.html',
 			inject: 'head',
-			favicon: path.join(__dirname, './static/favicon.ico'),
+			favicon: path.resolve(__dirname, './static/favicon.ico'),
 			minify: {
 				removeComments: true,
 				collapseWhitespace: true,
