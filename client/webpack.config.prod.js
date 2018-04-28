@@ -6,7 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const OfflinePlugin = require('offline-plugin');
 
 module.exports = {
 	context,
@@ -73,9 +72,6 @@ module.exports = {
 		// analyzerMode: 'static',     // COMMENT OUT WHEN NOT USING
 		// defaultSizes: 'gzip',       // COMMENT OUT WHEN NOT USING
 		// }),                         // COMMENT OUT WHEN NOT USING
-
-		// > "it's always better if OfflinePlugin is the last plugin added"
-		new OfflinePlugin(),
 	],
 
 	module: {
