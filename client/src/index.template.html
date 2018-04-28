@@ -1,15 +1,16 @@
 <!doctype html>
-<html>
+<html lang="en" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>>
 	<head>
 		<meta name=viewport content="width=device-width, initial-scale=1">
 
-		<!-- TODO how to load this from webpack chunks? (not hardcode "/manifest.json") -->
-		<link rel="manifest" href="/manifest.json">
-
-		<!-- TODO theme color (also in manifest.json) -->
+		<!-- also in manifest.json -->
 		<meta name="theme-color" content="#ffaa00">
 
-		<title>Webapp Title</title>
+		<title><%= htmlWebpackPlugin.options.title || 'Webapp Title' %></title>
+
+		<% if (htmlWebpackPlugin.files.favicon) { %>
+		<link rel="shortcut icon" href="<%= htmlWebpackPlugin.files.favicon%>">
+		<% } %>
 	</head>
 
 	<body>
