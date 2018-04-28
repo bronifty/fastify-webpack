@@ -125,7 +125,6 @@ module.exports = {
 
 	optimization: {
 		splitChunks: {
-			/*
 			chunks: 'async',
 			cacheGroups: {
 				default: {
@@ -137,9 +136,6 @@ module.exports = {
 					chunks: 'all',
 				},
 			},
-			*/
-
-			chunks: 'all',
 		},
 	},
 };
