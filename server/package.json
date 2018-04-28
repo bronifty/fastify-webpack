@@ -2,9 +2,11 @@
 	"name": "http2-webpack-server",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
+	"main": "src/index.js",
 	"scripts": {
-		"start": "node index.js",
+		"build:prod": "npm run clean && NODE_ENV=production webpack -p --config ./webpack.config.js --display-used-exports",
+		"clean": "rm -rf ./dist",
+		"start": "node dist/backend.bundle.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "@tsnieman",
@@ -18,5 +20,15 @@
 		"node": "^10.0.0",
 		"react": "^16.3.1",
 		"react-dom": "^16.3.1"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.0.0-beta.46",
+		"@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.46",
+		"@babel/preset-env": "^7.0.0-beta.46",
+		"babel-core": "^7.0.0-bridge.0",
+		"babel-plugin-module-resolver": "^3.1.1",
+		"webpack": "^4.6.0",
+		"webpack-cli": "^2.0.15",
+		"webpack-node-externals": "^1.7.2"
 	}
 }

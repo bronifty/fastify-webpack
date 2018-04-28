@@ -1,0 +1,25 @@
+{
+	"plugins": [
+		"@babel/plugin-proposal-object-rest-spread",
+	],
+
+	"presets": [
+		["@babel/preset-env", {
+			"modules": false,
+			"targets": {
+				"node": "current",
+			},
+		}],
+	],
+
+	"env": {
+		"test": { // when process.env.NODE_ENV is 'test'...
+			"plugins": [
+				// https://facebook.github.io/jest/docs/tutorial-webpack.html#webpack-2
+				// webpack 2 offers native support for ES modules. However, Jest runs in
+				// Node, and thus requires ES modules to be transpiled to CommonJS modules
+				"@babel/plugin-transform-modules-commonjs",
+			]
+		}
+	}
+}

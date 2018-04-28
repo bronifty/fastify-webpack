@@ -1,22 +1,21 @@
-const fastify = require('fastify');
-const fastifyAutoPush = require('fastify-auto-push');
-const fastifyHelmet = require('fastify-helmet');
-const fastifyCompress = require('fastify-compress');
-const fastifyReact = require('fastify-react');
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
+import fastify from 'fastify';
+import * as fastifyAutoPush from 'fastify-auto-push';
+import fastifyHelmet from 'fastify-helmet';
+import fastifyCompress from 'fastify-compress';
+import fastifyReact from 'fastify-react';
+import fs from 'fs';
+import path from 'path';
+import { promisify } from 'util';
+import { description, version } from '../package.json';
 
 const fsReadFile = promisify(fs.readFile);
 
-const STATIC_DIR = path.join(__dirname, '../client/dist');
-const CERTS_DIR = path.join(__dirname, 'certs');
+const STATIC_DIR = path.resolve(__dirname, '../client/dist');
+const CERTS_DIR = path.resolve(__dirname, './certs');
 const PORT = 8080;
 
-const { description, version } = require('./package.json');
-
 async function createServerOptions() {
-	const readCertFile = (filename) => fsReadFile(path.join(CERTS_DIR, filename));
+	const readCertFile = (filename) => fsReadFile(path.resolve(CERTS_DIR, filename));
 
 	const [key, cert] = await Promise.all([
 		readCertFile('key.pem'),
@@ -43,12 +42,12 @@ async function main() {
 	});
 
 	// Add important security headers via helmet.
-	// app.register(fastifyHelmet);
+	app.register(fastifyHelmet);
 
 	// Add compression utils (gzip, etc).
-	// app.register(fastifyCompress, {
-	// 	threshold: 150, // bytes; below this size will not be compressed
-	// });
+	app.register(fastifyCompress, {
+		threshold: 150, // bytes; below this size will not be compressed
+	});
 
 	app.route({
 		method: 'GET',
