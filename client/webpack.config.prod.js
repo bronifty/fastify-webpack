@@ -67,10 +67,10 @@ module.exports = {
 		}),
 
 		// Analyze webpack bundles (good insight into code-splitting and tree-shaking)
-		new BundleAnalyzerPlugin({
-			analyzerMode: 'static',
-			defaultSizes: 'gzip',
-		}),
+		// new BundleAnalyzerPlugin({  // COMMENT OUT WHEN NOT USING
+		// analyzerMode: 'static',     // COMMENT OUT WHEN NOT USING
+		// defaultSizes: 'gzip',       // COMMENT OUT WHEN NOT USING
+		// }),                         // COMMENT OUT WHEN NOT USING
 	],
 
 	module: {
