@@ -2,6 +2,7 @@
 import * as React from 'react'; // importing as a namespace gives access to React's utility types
 import './AppRoot.module.css';
 import '../styles/normalize.global.css';
+import BitcoinTicker from 'components/BitcoinTicker';
 
 import {
 	BrowserRouter as Router, // <-- to use history API instead of hash url pattern
@@ -15,6 +16,8 @@ const AppRoot = () => (
 	<Router>
 		<div styleName="wrapper">
 			<p>I am AppRoot.</p>
+
+			<BitcoinTicker />
 		</div>
 	</Router>
 );

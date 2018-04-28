@@ -11,6 +11,7 @@ module.exports = {
 
 	entry: {
 		frontend: [
+			'babel-polyfill',
 			path.resolve(__dirname, './src/index.jsx'),
 		],
 	},
