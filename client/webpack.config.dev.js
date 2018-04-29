@@ -1,6 +1,7 @@
 const path = require('path');
 
 const context = path.resolve(__dirname, 'src');
+const { publicPath } = require('../common/server.json');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
@@ -19,6 +20,7 @@ module.exports = {
 
 	output: {
 		path: path.resolve(__dirname, './dist'),
+		publicPath,
 		filename: '[name].bundle.js',
 	},
 

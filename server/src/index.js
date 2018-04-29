@@ -7,6 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
 import { description, version } from '../package.json';
+import { publicPath } from '../../common/server.json';
 
 const fsReadFile = promisify(fs.readFile);
 
@@ -43,9 +44,16 @@ async function main() {
 	// - https://www.fastify.io/docs/latest/Routes/#async-await
 
 	// AutoPush should be registered as the first in the middleware chain.
-	app.register(fastifyAutoPush.staticServe, {
-		root: STATIC_DIR,
-	});
+	app.register(
+		fastifyAutoPush.staticServe, {
+			root: STATIC_DIR,
+			prefix: publicPath,
+		},
+	);
+
+	app.get('/*', (req, reply) => {
+		reply.sendFile('index.html') // from STATIC_DIR
+	})
 
 	// Add important security headers via helmet.
 	app.register(fastifyHelmet);
