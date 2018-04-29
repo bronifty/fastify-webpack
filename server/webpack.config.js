@@ -7,6 +7,9 @@ var nodeExternals = require('webpack-node-externals');
 
 module.exports = {
 	target: 'node', // ignore built-in modules like path, file, etc
+	node: {
+		__dirname: true,
+	},
 	externals: [nodeExternals()], // ignore modules in node_modules
 
 	context,
