@@ -1,5 +1,6 @@
 /* @flow */
 import * as React from 'react'; // importing as a namespace gives access to React's utility types
+import './BitcoinTicker.module.css';
 
 type Rates = {
 	[currency: string]: {
@@ -26,22 +27,26 @@ class BitcoinTicker extends React.Component<Props, State> {
 	}
 
 	componentDidMount() {
-		getBitcoinExchangeRates().then((rates) => {
+		const getLatestRates = () => getBitcoinExchangeRates().then((rates) => {
 			this.setState({ rates });
 		});
+
+		getLatestRates();
 	}
 
 	render() {
 		const { rates } = this.state;
 		if (rates) {
 			return (
-				<div>
-					<p>Bitcoin rates</p>
-					{Object.keys(rates).map(currency => (
-						<div key={currency}>
-							{currency}: {rates[currency].symbol}{rates[currency].buy}
-						</div>
-					))}
+				<div styleName="wrapper">
+					<p>Bitcoin &#34;buy&#34; rates</p>
+					<ul>
+						{Object.keys(rates).map(currency => (
+							<li key={currency}>
+								{currency}: {rates[currency].symbol}{rates[currency].buy}
+							</li>
+						))}
+					</ul>
 				</div>
 			);
 		}

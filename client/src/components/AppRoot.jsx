@@ -1,6 +1,5 @@
 /* @flow */
 import * as React from 'react'; // importing as a namespace gives access to React's utility types
-import './AppRoot.module.css';
 import '../styles/normalize.global.css';
 import ErrorBoundary from 'components/basics/ErrorBoundary';
 import BitcoinTicker from 'components/BitcoinTicker';
@@ -10,28 +9,48 @@ import {
 	// HashRouter as Router,
 	Switch,
 	Route,
-	// Link,
+	Link,
 } from 'react-router-dom';
 
 const AppRoot = () => (
 	<Router>
-		<Switch>
-			<Route exact path="/">
-				<div styleName="wrapper">
-					<p>I am AppRoot.</p>
+		<div>
+			<nav>
+				<ul>
+					<li>
+						<Link to="/">home</Link>
+					</li>
 
-					<ErrorBoundary>
-						<BitcoinTicker />
-					</ErrorBoundary>
-				</div>
-			</Route>
+					<li>
+						<Link to="/bitcoin">bitcoin ticker</Link>
+					</li>
+				</ul>
+			</nav>
 
-			<Route>
-				<div>
-					404
-				</div>
-			</Route>
-		</Switch>
+			<hr />
+
+			<Switch>
+				<Route exact path="/">
+					<div>
+						<p>This is the home page.</p>
+					</div>
+				</Route>
+
+				<Route path="/bitcoin">
+					<div>
+						<ErrorBoundary>
+							<BitcoinTicker />
+						</ErrorBoundary>
+					</div>
+				</Route>
+
+				<Route>
+					<div>
+						404
+					</div>
+				</Route>
+			</Switch>
+		</div>
 	</Router>
 );
 
