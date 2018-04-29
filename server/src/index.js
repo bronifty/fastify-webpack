@@ -36,6 +36,12 @@ async function main() {
 		https: { key, cert },
 	});
 
+	// # Fastify tips
+	// ## Promise/async/await resolution
+	// > Warning: You can't return undefined.
+	// - https://www.fastify.io/docs/latest/Routes/#promise-resolution
+	// - https://www.fastify.io/docs/latest/Routes/#async-await
+
 	// AutoPush should be registered as the first in the middleware chain.
 	app.register(fastifyAutoPush.staticServe, {
 		root: STATIC_DIR,
