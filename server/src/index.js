@@ -3,6 +3,7 @@ import * as fastifyAutoPush from 'fastify-auto-push';
 import fastifyHelmet from 'fastify-helmet';
 import fastifyCompress from 'fastify-compress';
 import fastifyReact from 'fastify-react';
+import fastifyGracefulShutdown from 'fastify-graceful-shutdown';
 import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
@@ -35,6 +36,7 @@ async function main() {
 	const app = fastify({
 		http2: true,
 		https: { key, cert },
+		logger: true,
 	});
 
 	// # Fastify tips
@@ -43,7 +45,7 @@ async function main() {
 	// - https://www.fastify.io/docs/latest/Routes/#promise-resolution
 	// - https://www.fastify.io/docs/latest/Routes/#async-await
 
-	// AutoPush should be registered as the first in the middleware chain.
+	// > AutoPush should be registered as the first in the middleware chain.
 	app.register(
 		fastifyAutoPush.staticServe, {
 			root: STATIC_DIR,
@@ -51,9 +53,21 @@ async function main() {
 		},
 	);
 
-	app.get('/*', (req, reply) => {
-		reply.sendFile('index.html') // from STATIC_DIR
+	// By default the fastify close hook is called when SIGINT or SIGTERM was triggered.
+	app.register(fastifyGracefulShutdown).after((err) => {
+		app.log.error(err)
+
+		// Register custom clean up handler
+		app.gracefulShutdown((code, cb) => {
+			console.log('\nGracefully shutting down...\n');
+			cb();
+		})
 	})
+
+	app.get('/*', (req, reply) => {
+		req.log.info('Hello');
+		reply.sendFile('index.html') // from STATIC_DIR
+	});
 
 	// Add important security headers via helmet.
 	app.register(fastifyHelmet);
@@ -78,12 +92,13 @@ async function main() {
 			},
 		},
 		handler: async (request, reply) => {
-			reply.type('application/json').code(200)
-
-			return {
-				version,
-				description,
-			};
+			reply
+				.code(200)
+				.type('application/json')
+				.send({
+					version,
+					description,
+				});
 		},
 	});
 
@@ -91,8 +106,8 @@ async function main() {
 	app
 		.register(fastifyReact)
 		.after(() => {
-			app.next('/hello') // `GET /hello` => `./pages/hello`
-		})
+			app.next('/hello'); // `GET /hello` => `./pages/hello`
+		});
 
 	await app.listen(PORT);
 	console.log(`Listening on port ${PORT}`);
