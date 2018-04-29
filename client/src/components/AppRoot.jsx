@@ -8,20 +8,30 @@ import BitcoinTicker from 'components/BitcoinTicker';
 import {
 	BrowserRouter as Router, // <-- to use history API instead of hash url pattern
 	// HashRouter as Router,
-	// Switch,
-	// Route,
+	Switch,
+	Route,
 	// Link,
 } from 'react-router-dom';
 
 const AppRoot = () => (
 	<Router>
-		<div styleName="wrapper">
-			<p>I am AppRoot.</p>
+		<Switch>
+			<Route exact path="/">
+				<div styleName="wrapper">
+					<p>I am AppRoot.</p>
 
-			<ErrorBoundary>
-				<BitcoinTicker />
-			</ErrorBoundary>
-		</div>
+					<ErrorBoundary>
+						<BitcoinTicker />
+					</ErrorBoundary>
+				</div>
+			</Route>
+
+			<Route>
+				<div>
+					404
+				</div>
+			</Route>
+		</Switch>
 	</Router>
 );
 
