@@ -8,7 +8,7 @@ var nodeExternals = require('webpack-node-externals');
 module.exports = {
 	target: 'node', // ignore built-in modules like path, file, etc
 	node: {
-		__dirname: true,
+		__dirname: true, // otherwise path gets confused. more @ https://webpack.js.org/configuration/node/#node-__dirname
 	},
 	externals: [nodeExternals()], // ignore modules in node_modules
 
