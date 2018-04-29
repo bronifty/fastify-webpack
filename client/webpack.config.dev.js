@@ -39,8 +39,8 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			// Options similar to the same options in webpackOptions.output
 			// both options are optional
-			filename: '[name].css',
-			chunkFilename: '[id].css',
+			filename: '[name].bundle.css',
+			chunkFilename: '[name]-[id].css',
 		}),
 
 		new WebpackPwaManifest({
@@ -65,18 +65,6 @@ module.exports = {
 			filename: 'index.html',
 			inject: 'head',
 			favicon: path.resolve(__dirname, './static/favicon.ico'),
-			minify: {
-				removeComments: true,
-				collapseWhitespace: true,
-				removeRedundantAttributes: true,
-				useShortDoctype: true,
-				removeEmptyAttributes: true,
-				removeStyleLinkTypeAttributes: true,
-				keepClosingSlash: true,
-				minifyJS: true,
-				minifyCSS: true,
-				minifyURLs: true,
-			},
 		}),
 
 		// Plugin for HtmlWebpackPlugin hook which allows functionality with

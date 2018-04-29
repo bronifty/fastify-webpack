@@ -60,6 +60,8 @@
 		"webpack-cli": "^2.0.14"
 	},
 	"devDependencies": {
+		"optimize-css-assets-webpack-plugin": "^4.0.0",
+		"uglifyjs-webpack-plugin": "^1.2.5",
 		"webpack-pwa-manifest": "^3.6.2"
 	}
 }

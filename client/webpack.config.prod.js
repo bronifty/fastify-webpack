@@ -7,6 +7,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
@@ -40,8 +43,8 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			// Options similar to the same options in webpackOptions.output
 			// both options are optional
-			filename: '[name].css',
-			chunkFilename: '[id].css',
+			filename: '[name].bundle.css',
+			chunkFilename: '[name]-[id].css',
 		}),
 
 		new WebpackPwaManifest({
@@ -74,8 +77,6 @@ module.exports = {
 				removeEmptyAttributes: true,
 				removeStyleLinkTypeAttributes: true,
 				keepClosingSlash: true,
-				minifyJS: true,
-				minifyCSS: true,
 				minifyURLs: true,
 			},
 		}),
@@ -144,16 +145,36 @@ module.exports = {
 	},
 
 	optimization: {
+		minimizer: [
+			new UglifyJsPlugin({
+				cache: true,
+				parallel: true,
+				sourceMap: true,
+			}),
+
+			new OptimizeCSSAssetsPlugin({}),
+		],
+
+		// SplitChunksPlugin (aka optimization.splitChunks) documentation:
+		// https://github.com/webpack/webpack.js.org/blob/master/src/content/plugins/split-chunks-plugin.md
 		splitChunks: {
+			// (this is the default)
 			chunks: 'async',
+			minSize: 30000,
+			minChunks: 1,
+			maxAsyncRequests: 5,
+			maxInitialRequests: 3,
+			automaticNameDelimiter: '~',
+			name: true,
 			cacheGroups: {
 				default: {
+					minChunks: 2,
+					priority: -20,
 					reuseExistingChunk: true,
 				},
-				commons: {
-					test: /node_modules/,
-					name: 'vendor',
-					chunks: 'all',
+				vendors: {
+					test: /[\\/]node_modules[\\/]/,
+					priority: -10,
 				},
 			},
 		},
