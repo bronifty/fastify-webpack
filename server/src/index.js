@@ -60,7 +60,7 @@ async function main() {
 
 	// Add compression utils (gzip, etc).
 	app.register(fastifyCompress, {
-		threshold: 150, // bytes; below this size will not be compressed
+		threshold: 0, // bytes; below this size will not be compressed
 	});
 
 	app.route({
