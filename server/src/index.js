@@ -65,7 +65,6 @@ async function main() {
 	})
 
 	app.get('/*', (req, reply) => {
-		req.log.info('Hello');
 		reply.sendFile('index.html') // from STATIC_DIR
 	});
 
