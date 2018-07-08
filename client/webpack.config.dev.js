@@ -7,9 +7,46 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
+
+const webpackServeWaitpage = require('webpack-serve-waitpage');
 
 module.exports = {
+	mode: 'development',
+
 	context,
+
+	serve: {
+		content: [__dirname], // TODO what the fuck does this do?
+		host: 'localhost',
+		port: 9090,
+		devMiddleware: {
+			publicPath, // serve like /static/asset.js
+			writeToDisk: true, // TODO not ideal
+		},
+		hotClient: true, // enable hot reloading
+		https: {
+			cert: path.join('../server/certs/cert.pem'),
+			key: path.join('../server/certs/key.pem'),
+		},
+		clipboard: false,
+
+		add(app, middleware, options) {
+			// Show a 'building...' page when waiting to serve.
+			app.use(webpackServeWaitpage(options));
+
+			// middleware.webpack().then(() => {
+			// 	middleware.content({
+			// 		index: 'index.html',
+			// 	});
+
+			// 	app.use((ctx) => {
+			// 		// eslint-disable-next-line no-param-reassign
+			// 		ctx.status = 204;
+			// 	});
+			// });
+		},
+	},
 
 	entry: {
 		frontend: [
@@ -36,6 +73,9 @@ module.exports = {
 	},
 
 	plugins: [
+		// names instead of numbers (TODO find out if necessary for HMR?)
+		new webpack.NamedModulesPlugin(),
+
 		new MiniCssExtractPlugin({
 			// Options similar to the same options in webpackOptions.output
 			// both options are optional

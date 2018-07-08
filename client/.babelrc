@@ -9,7 +9,9 @@
 				"generateScopedName": "[local]__[hash:base64:5]",
 				"context": "src"
 			}
-		]
+		],
+
+		"react-hot-loader/babel",
 	],
 
 	"presets": [
