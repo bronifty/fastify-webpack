@@ -17,7 +17,7 @@ module.exports = {
 	context,
 
 	serve: {
-		content: [__dirname], // TODO what the fuck does this do?
+		content: [__dirname], // "The path from which static content will be served"
 		host: 'localhost',
 		port: 9090,
 		devMiddleware: {
