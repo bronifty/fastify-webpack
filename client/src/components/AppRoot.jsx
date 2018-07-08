@@ -56,5 +56,4 @@ const AppRoot = () => (
 	</Router>
 );
 
-// export default AppRoot;
 export default hot(module)(AppRoot);
