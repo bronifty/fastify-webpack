@@ -14,6 +14,8 @@ const webpackServeWaitpage = require('webpack-serve-waitpage');
 module.exports = {
 	mode: 'development',
 
+	// context is "the base directory, an absolute path, for resolving entry
+	// points and loaders from configuration"
 	context,
 
 	serve: {
@@ -29,22 +31,11 @@ module.exports = {
 			cert: path.join('../server/certs/cert.pem'),
 			key: path.join('../server/certs/key.pem'),
 		},
-		clipboard: false,
+		clipboard: false, // don't copy address to clipboard
 
 		add(app, middleware, options) {
 			// Show a 'building...' page when waiting to serve.
 			app.use(webpackServeWaitpage(options));
-
-			// middleware.webpack().then(() => {
-			// 	middleware.content({
-			// 		index: 'index.html',
-			// 	});
-
-			// 	app.use((ctx) => {
-			// 		// eslint-disable-next-line no-param-reassign
-			// 		ctx.status = 204;
-			// 	});
-			// });
 		},
 	},
 

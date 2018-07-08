@@ -13,6 +13,10 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
+	mode: 'production',
+
+	// context is "the base directory, an absolute path, for resolving entry
+	// points and loaders from configuration"
 	context,
 
 	entry: {
