@@ -4,6 +4,8 @@ import '../styles/normalize.global.css';
 import ErrorBoundary from 'components/basics/ErrorBoundary';
 import BitcoinTicker from 'components/BitcoinTicker';
 
+import { hot } from 'react-hot-loader';
+
 import {
 	BrowserRouter as Router, // <-- to use history API instead of hash url pattern
 	// HashRouter as Router,
@@ -54,4 +56,4 @@ const AppRoot = () => (
 	</Router>
 );
 
-export default AppRoot;
+export default hot(module)(AppRoot);

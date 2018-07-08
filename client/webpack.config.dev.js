@@ -7,9 +7,37 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
+
+const webpackServeWaitpage = require('webpack-serve-waitpage');
 
 module.exports = {
+	mode: 'development',
+
+	// context is "the base directory, an absolute path, for resolving entry
+	// points and loaders from configuration"
 	context,
+
+	serve: {
+		content: [__dirname], // "The path from which static content will be served"
+		host: 'localhost',
+		port: 9090,
+		devMiddleware: {
+			publicPath, // serve like /static/asset.js
+			writeToDisk: true, // TODO not ideal
+		},
+		hotClient: true, // enable hot reloading
+		https: {
+			cert: path.join('../server/certs/cert.pem'),
+			key: path.join('../server/certs/key.pem'),
+		},
+		clipboard: false, // don't copy address to clipboard
+
+		add(app, middleware, options) {
+			// Show a 'building...' page when waiting to serve.
+			app.use(webpackServeWaitpage(options));
+		},
+	},
 
 	entry: {
 		frontend: [
@@ -36,6 +64,9 @@ module.exports = {
 	},
 
 	plugins: [
+		// names instead of numbers (TODO find out if necessary for HMR?)
+		new webpack.NamedModulesPlugin(),
+
 		new MiniCssExtractPlugin({
 			// Options similar to the same options in webpackOptions.output
 			// both options are optional
