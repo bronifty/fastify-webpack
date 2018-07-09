@@ -1,5 +1,7 @@
-{
-	"plugins": [
+const env = process.env.BABEL_ENV || process.env.NODE_ENV;
+
+const config = {
+	plugins: [
 		"@babel/plugin-proposal-object-rest-spread",
 		"@babel/plugin-proposal-class-properties",
 
@@ -14,7 +16,7 @@
 		"react-hot-loader/babel",
 	],
 
-	"presets": [
+	presets: [
 		["@babel/preset-env", {
 			"modules": false,
 			"targets": {
@@ -30,15 +32,11 @@
 
 		'@babel/preset-flow',
 	],
+};
 
-	"env": {
-		"test": { // when process.env.NODE_ENV is 'test'...
-			"plugins": [
-				// https://facebook.github.io/jest/docs/tutorial-webpack.html#webpack-2
-				// webpack 2 offers native support for ES modules. However, Jest runs in
-				// Node, and thus requires ES modules to be transpiled to CommonJS modules
-				"@babel/plugin-transform-modules-commonjs",
-			]
-		}
-	}
+if (env === 'test') {
+	// Jest runs in Node, and thus requires ES modules to be transpiled to CommonJS modules
+	config.plugins.plugins.push("@babel/plugin-transform-modules-commonjs");
 }
+
+module.exports = config;
