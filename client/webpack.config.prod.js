@@ -1,8 +1,5 @@
 const path = require('path');
 
-const context = path.resolve(__dirname, 'src');
-const { publicPath } = require('../common/server.json');
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
@@ -10,38 +7,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+// COMMENT OUT WHEN NOT USING
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
+	// webpack-command's extendable webpack configuration
+	// https://github.com/webpack-contrib/webpack-command#extendable-webpack-configurations
+	extends: path.join(__dirname, 'webpack.config.base.js'),
+
 	mode: 'production',
-
-	// context is "the base directory, an absolute path, for resolving entry
-	// points and loaders from configuration"
-	context,
-
-	entry: {
-		frontend: [
-			'babel-polyfill',
-			path.resolve(__dirname, './src/index.jsx'),
-		],
-	},
-
-	output: {
-		path: path.resolve(__dirname, './dist'),
-		publicPath,
-		filename: '[name].bundle.js',
-	},
-
-	resolve: {
-		// Look for modules in these places...
-		modules: [
-			'node_modules',
-			path.resolve(__dirname, './src'),
-		],
-
-		// Settings so filename extension isn't required when importing.
-		extensions: ['.js', '.jsx'],
-	},
 
 	plugins: [
 		new MiniCssExtractPlugin({
@@ -97,56 +71,6 @@ module.exports = {
 		// defaultSizes: 'gzip',       // COMMENT OUT WHEN NOT USING
 		// }),                         // COMMENT OUT WHEN NOT USING
 	],
-
-	module: {
-		rules: [
-			// Javascript
-			{
-				test: /\.(js|jsx)$/,
-				exclude: [
-					/node_modules/,
-				],
-				use: [
-					{
-						loader: 'babel-loader',
-						// options in .babelrc
-					},
-				],
-			},
-
-			// CSS (CSS Modules)
-			{
-				test: /\.module\.css$/, // Only handle *.module.css
-				use: [
-					'style-loader',
-					MiniCssExtractPlugin.loader,
-					{
-						loader: 'css-loader',
-						options: {
-							modules: true,
-							importLoaders: 2,
-							localIdentName: '[local]__[hash:base64:5]',
-						},
-					},
-					'postcss-loader', // options in postcss.config.js
-				],
-			},
-
-			// CSS (global/non-css-module)
-			{
-				test: /\.css$/,
-				exclude: /\.module\.css$/, // Don't handle *.module.css
-				use: [
-					'style-loader',
-					MiniCssExtractPlugin.loader,
-					{
-						loader: 'css-loader',
-					},
-					'postcss-loader', // options in postcss.config.js
-				],
-			},
-		],
-	},
 
 	optimization: {
 		minimizer: [
