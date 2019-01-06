@@ -2,7 +2,6 @@ import fastify from 'fastify';
 import * as fastifyAutoPush from 'fastify-auto-push';
 import fastifyHelmet from 'fastify-helmet';
 import fastifyCompress from 'fastify-compress';
-import fastifyReact from 'fastify-react';
 import fastifyGracefulShutdown from 'fastify-graceful-shutdown';
 import fs from 'fs';
 import path from 'path';
@@ -100,13 +99,6 @@ async function main() {
 				});
 		},
 	});
-
-	// React server-side rendering support via Next Framework.
-	app
-		.register(fastifyReact)
-		.after(() => {
-			app.next('/hello'); // `GET /hello` => `./pages/hello`
-		});
 
 	await app.listen(PORT);
 	console.log(`Listening on port ${PORT}`);

@@ -12,13 +12,12 @@
 	"author": "@tsnieman",
 	"license": "UNLICENSED",
 	"dependencies": {
+		"babel-loader": "^8.0.5",
 		"fastify": "^1.7.0",
 		"fastify-auto-push": "^0.4.0",
 		"fastify-compress": "^0.7.1",
 		"fastify-graceful-shutdown": "^2.0.0",
 		"fastify-helmet": "^3.0.0",
-		"fastify-react": "^3.0.0",
-		"next": "^7.0.2",
 		"node": "^11.6.0",
 		"react": "^16.4.1",
 		"react-dom": "^16.4.1"
