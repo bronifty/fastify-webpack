@@ -12,7 +12,7 @@ import { publicPath } from '../../common/server.json';
 
 const fsReadFile = promisify(fs.readFile);
 
-const STATIC_DIR = path.resolve(__dirname, '../client/dist');
+const STATIC_DIR = path.resolve(__dirname, '../common/dist');
 const CERTS_DIR = path.resolve(__dirname, './certs');
 const PORT = 8080;
 

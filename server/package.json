@@ -14,11 +14,12 @@
 	"dependencies": {
 		"fastify": "^1.7.0",
 		"fastify-auto-push": "^0.4.0",
-		"fastify-compress": "^0.6.0",
+		"fastify-compress": "^0.7.1",
 		"fastify-graceful-shutdown": "^2.0.0",
-		"fastify-helmet": "^1.0.3",
-		"fastify-react": "^2.0.0",
-		"node": "^10.6.0",
+		"fastify-helmet": "^3.0.0",
+		"fastify-react": "^3.0.0",
+		"next": "^7.0.2",
+		"node": "^11.6.0",
 		"react": "^16.4.1",
 		"react-dom": "^16.4.1"
 	},
@@ -29,7 +30,7 @@
 		"babel-core": "^7.0.0-bridge.0",
 		"babel-plugin-module-resolver": "^3.1.1",
 		"webpack": "^4.15.1",
-		"webpack-cli": "^2.1.5",
+		"webpack-cli": "^3.2.0",
 		"webpack-node-externals": "^1.7.2"
 	}
 }

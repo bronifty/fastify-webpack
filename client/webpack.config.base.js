@@ -50,7 +50,7 @@ module.exports = {
 	},
 
 	output: {
-		path: path.resolve(__dirname, './dist'),
+		path: path.resolve(__dirname, '../common/dist'),
 		publicPath,
 		filename: '[name].bundle.js',
 	},
